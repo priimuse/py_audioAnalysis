@@ -24,14 +24,14 @@ jobs:
 
     - name: mod librosa dependency
       run: |
-        fileToMod=/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/librosa/beat.py
-        if [ ! -f "$fileToMod"]; then
-          echo "Error: fileToMod does not exist."
+        cd /opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/librosa
+        if [ ! -f beat.py]; then
+          echo "Error: beat.py does not exist."
           exit 1
         fi
         tempfile=$(mktemp)
-        sed 's/hann(/windows.hann(/g' "$fileToMod" > "$tempfile"
-        mv "$tempfile "$fileToMod"
+        sed 's/hann(/windows.hann(/g' beat.py > "$tempfile"
+        mv "$tempfile" beat.py
         echo "Replacement complete."
         
     - name: Analyze Audio
