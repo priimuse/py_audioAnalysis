@@ -19,12 +19,20 @@ jobs:
         # python -m pip install
         # pip install flake8 pytest
         pip install requests
+        pip install 'librosa==0.10.1'
         # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    - name: Test mod dependencies
+    - name: mod librosa dependency
       run: |
-        cd /opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/requests
-        dir
+        fileToMod=/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages/librosa/beat.py
+        if [ ! -f "$fileToMod"]; then
+          echo "Error: fileToMod does not exist."
+          exit 1
+        fi
+        tempfile=$(mktemp)
+        sed 's/hann(/windows.hann(/g' "$fileToMod" > "$tempfile"
+        mv "$tempfile "$fileToMod"
+        echo "Replacement complete."
         
     - name: Analyze Audio
       run: |
