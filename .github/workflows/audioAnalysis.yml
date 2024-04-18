@@ -1,6 +1,13 @@
 name: Analyze Audio
 on:
   workflow_dispatch:
+    inputs:
+      filePath:
+        description: 'full file path (including name + extension) for file to analyze in b2 storage'
+        required: true
+      bucketName:
+        description: 'name of bucket in b2 storage containing the file to analyze'
+        required: true
 
 jobs:
   build:
@@ -36,4 +43,11 @@ jobs:
         
     - name: Analyze Audio
       run: |
-        python audioAnalysis.py
+        echo Downloading File...
+        python FileDownload.py ${{ secrets.BB_AUTH_A }} ${{ secrets.BB_AUTH_B }} ${{ github.event.inputs.filePath }} ${{ github.event.inputs.bucketName }}
+        
+        echo Converting File...
+        python FileConversion.py
+
+        echo Analyzing File...
+        python AudioAnalysis.py
