@@ -25,8 +25,10 @@ jobs:
       run: |
         # python -m pip install
         # pip install flake8 pytest
-        pip install requests
+        pip install 'requests==2.31.0'
         pip install 'librosa==0.10.1'
+        pip install numpy
+        pip install 'moviepy==1.0.3'
         # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: mod librosa dependency
@@ -44,10 +46,11 @@ jobs:
     - name: Analyze Audio
       run: |
         echo Downloading File...
-        python FileDownload.py ${{ secrets.BB_AUTH_A }} ${{ secrets.BB_AUTH_B }} ${{ github.event.inputs.filePath }} ${{ github.event.inputs.bucketName }}
+        output=$(python FileDownload.py ${{ secrets.BB_AUTH_A }} ${{ secrets.BB_AUTH_B }} ${{ github.event.inputs.filePath }} ${{ github.event.inputs.bucketName }})
+        outFile=$(echo "$output" | tail -n 1)
         
         echo Converting File...
-        python FileConversion.py
+        convertedFile=$(python FileConversion.py $outFile)
 
         echo Analyzing File...
-        python AudioAnalysis.py
+        python AudioAnalysis.py $convertedFile
