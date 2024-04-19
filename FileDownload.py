@@ -63,7 +63,7 @@ def AuthInitial(url, auth):
 
 def GetInitialAuth(crds):
 	outObj = AuthInitial(
-		url='https://api.backblazeb2.com/b2api/v3/b2_authorize_account',
+		url='https://api.backblazeb2.com/b2api/v2/b2_authorize_account',
         auth=crds )
 
 	print("GetInitialAuth(): returning auth ts ", outObj["ts"])
