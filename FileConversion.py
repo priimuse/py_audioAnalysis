@@ -12,4 +12,4 @@ def main(inF):
     if os.path.exists(outF): print(outF)
   else: print(inF)
 
-main(sys.argv)
+main(sys.argv[1])
