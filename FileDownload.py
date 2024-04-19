@@ -89,8 +89,8 @@ def main(argsList):
         with open(outFileSavePath, "wb") as f:
             f.write(dlObj_bytes.content)
     else:
-        print("failed blob download!")
-    print(outFileSavePath)
+        return None
+    return outFileSavePath
 
 ret = main(sys.argv)
 print("file dowloaded to ", ret)
