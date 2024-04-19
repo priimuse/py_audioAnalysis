@@ -83,8 +83,8 @@ def main(argsList):
     extension = inBlobName.split(".")[-1].lower()
     outFileSavePath = os.path.join(os.getcwd(), "temp", "out." + extension)
     if not os.path.exists(outFileSavePath):
-		os.mkdir(outFileSavePath.split("/out")[0])
-
+        os.mkdir(outFileSavePath.split("/out")[0])
+        
     dlObj_bytes = GetRequest(url=authorizedUrl + '/file/' + argsList[4] + '/' + inBlobName, retries=3, timeout=30, headers=fileInfoRes_header, params={})
     if dlObj_bytes.ok:
         print("bytes returned: ", len(dlObj_bytes.content))
