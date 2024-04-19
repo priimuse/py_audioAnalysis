@@ -61,10 +61,10 @@ def AuthInitial(url, auth):
                 "absMinPartSize": authRes["absoluteMinimumPartSize"]  # int
             })
 
-def GetInitialAuth():
+def GetInitialAuth(crds):
 	outObj = AuthInitial(
 		url='https://api.backblazeb2.com/b2api/v3/b2_authorize_account',
-        auth=(INITAUTHCREDS[0], INITAUTHCREDS[1]) )
+        auth=crds )
 
 	print("GetInitialAuth(): returning auth ts ", outObj["ts"])
 	return outObj
@@ -72,8 +72,7 @@ def GetInitialAuth():
 def main(argsList):
     #given an infile, download from b2 storage
     inBlobName = argsList[3]
-    INITAUTHCREDS = (argsList[1], argsList[2])
-    _INITAUTHOBJ = GetInitialAuth()
+    _INITAUTHOBJ = GetInitialAuth( (argsList[1], argsList[2]) )
     authTokenStr = _INITAUTHOBJ["token"]
     authorizedUrl = _INITAUTHOBJ["url"]
     fileInfoRes_header = {
