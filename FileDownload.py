@@ -95,4 +95,4 @@ def main(argsList):
     return outFileSavePath
 
 ret = main(sys.argv)
-print("file dowloaded to ", ret)
+print(ret)
