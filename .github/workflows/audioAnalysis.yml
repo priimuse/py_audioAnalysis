@@ -47,10 +47,13 @@ jobs:
       run: |
         echo Downloading File...
         output=$(python FileDownload.py ${{ secrets.BB_AUTH_A }} ${{ secrets.BB_AUTH_B }} ${{ github.event.inputs.filePath }} ${{ github.event.inputs.bucketName }})
+        echo $output
         outFile=$(echo "$output" | tail -n 1)
-        
+        echo $outFile
+
         echo Converting File...
         convertedFile=$(python FileConversion.py $outFile)
+        echo $convertedFile
 
         echo Analyzing File...
         python AudioAnalysis.py $convertedFile
