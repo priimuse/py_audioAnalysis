@@ -23,4 +23,4 @@ def main(inF):
         print("@ offset: ", offset, "tempo: ", tempo)
         offset += step
 
-main()
+main(sys.argv[1])
